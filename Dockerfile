@@ -1,22 +1,17 @@
 FROM ubuntu:14.04
 
-USER root
-RUN apt-get update && apt-get install -y \
-    python3 \
-    curl && \
-    rm -rf /var/lib/apt/lists/*
-RUN groupadd -r nonroot && \
-    useradd -r -g nonroot -d /home/nonroot -s /sbin/nologin -c "Nonroot User" nonroot && \
-    mkdir /home/nonroot && \
-    chown -R nonroot:nonroot /home/nonroot
+WORKDIR /web/
+ADD ./index.html /web/
+ADD ./normalize.css /web/
+ADD ./sakura.png /web/
 
-USER nonroot
-WORKDIR /home/nonroot/
-RUN curl -o index.html http://info.cern.ch/hypertext/WWW/TheProject.html
+RUN apt-get update && apt-get install -y python3 curl
+RUN curl -o sakura.css https://raw.githubusercontent.com/oxalorg/sakura/master/css/sakura.css
+# RUN curl -o index.html http://info.cern.ch/hypertext/WWW/TheProject.html
 
-USER nonroot
-EXPOSE 3000
-WORKDIR /home/nonroot/
+# USER nonroot
+# EXPOSE "3000:3000"
+# WORKDIR /home/nonroot/
 CMD ["python3", "-m", "http.server", "3000"]
 
 # To build this on docker, run:
