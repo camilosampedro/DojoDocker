@@ -9,4 +9,4 @@ apt-get install apache2
 
 # Build Dockerfile
 sudo docker build -t dockerexample:0.1 .
-sudo docker run dockerexample:0.1
+sudo docker run -it -p "3000:3000" dockerexample:0.1
