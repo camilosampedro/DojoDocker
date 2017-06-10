@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu
 
 WORKDIR /web/
 ADD ./index.html /web/
@@ -7,17 +7,7 @@ ADD ./sakura.png /web/
 
 RUN apt-get update && apt-get install -y python3 curl
 RUN curl -o sakura.css https://raw.githubusercontent.com/oxalorg/sakura/master/css/sakura.css
-# RUN curl -o index.html http://info.cern.ch/hypertext/WWW/TheProject.html
-
-# USER nonroot
-# EXPOSE "3000:3000"
-# WORKDIR /home/nonroot/
 CMD ["python3", "-m", "http.server", "3000"]
-
-# To build this on docker, run:
-# [sudo] docker build -t dockerexample:0.1 .
-# To run this, run
-# [sudo] docker run dockerexample:0.1
 
 # Selects a base image for building this docker image
 # ---------------------------------------------------------
